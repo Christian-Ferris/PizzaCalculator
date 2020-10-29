@@ -1,23 +1,40 @@
-function pizzaCalculator()
-{
-    //Get the number of coworkers and convert
-var numberOfCoworkers = parseInt(prompt("How many coworkers are eating this pizza with you?"));
+$(document).ready(
+    function ()
+    {
+        // add event listener (clicks, etc.)
+        $("button").click(calculateCost);
 
-    //Get the number of toppings and convert
-var toppings = parseInt(prompt("How many toppings are you having?"));
+        function calculateCost() {
+            //Gather input from id="people"
+            var people = $("#people").val();
 
-    //Multiply amount of toppings by 1.25
-var toppingPrice = toppings*1.25;
+            //convert to a number (no decimals)
+            people = parseInt(people);
 
-    //Add 15 to the calculation for total pizza cost
-var totalCost = toppingPrice+15;
+            //Gather input from id="toppings"
+            var toppings = $("#toppings").val();
 
-    //Divide total cost by number of contributors (coworkers + 1)
-var pricePerPerson = totalCost/(numberOfCoworkers+1);
+            //convert to a number (no decimals)
+            toppings = parseInt(toppings);
 
-    //Display the price each person has to pay
-var pricePerPersonDisplay = pricePerPerson.toFixed(2);
+            /*
+            PERFORM CALCULATIONS AND DISPLAY OUTPUT
+            */
 
-alert(`Each person has to pay $${pricePerPersonDisplay} for this pizza`);
+            //cost of total pizza
+            var pizzaCost = 15+(1.25*toppings);
 
-}
+            //price each person has to pay
+            var costPerPerson = pizzaCost/people;
+
+            //round to 2 decimals
+            var costPerPersonDisplay = costPerPerson.toFixed(2);
+
+            //update the text in the span with id="cost"
+            $("#cost").text(costPerPersonDisplay);
+
+            //unhide the results div
+            $(".output").show();
+        }
+    }
+)
